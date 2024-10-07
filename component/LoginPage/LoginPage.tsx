@@ -1,12 +1,17 @@
 // component/LoginPage/LoginPage.tsx
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../src/AuthContext';
 import './LoginPage.css';
+import FormField from '../RegisterPage/FormField';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -27,9 +32,11 @@ const LoginPage: React.FC = () => {
         setErrorMessage('');
         setEmail('');
         setPassword('');
+        login(); // Set authentication state
         setTimeout(() => {
           setSuccessMessage('');
-        }, 5000);
+          navigate('/'); // Redirect to home page
+        }, 500);
       } else {
         setErrorMessage('Invalid email or password');
         setSuccessMessage('');
@@ -46,32 +53,30 @@ const LoginPage: React.FC = () => {
       <div className="card p-4" style={{ width: '100%', maxWidth: '400px' }}>
         <h1 className="text-center">Login</h1>
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">Email:</label>
-            <input
-              type="email"
-              id="email"
-              className="form-control"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">Password:</label>
-            <input
-              type="password"
-              id="password"
-              className="form-control"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
+          <FormField
+            id="email"
+            label="Email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            addon="@"
+          />
+          <FormField
+            id="password"
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            addon="🔒"
+          />
           {errorMessage && <div className="text-danger">{errorMessage}</div>}
           {successMessage && <div className="text-success">{successMessage}</div>}
           <button type="submit" className="btn btn-primary w-100">Login</button>
         </form>
+        <div className="text-center mt-3">
+          <span>Don't have an account? </span>
+          <Link to="/register">Register</Link>
+        </div>
       </div>
     </div>
   );
