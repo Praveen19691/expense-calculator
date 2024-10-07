@@ -3,6 +3,7 @@ import './RegisterPage.css';
 import FormField from './FormField';
 import SuccessMessage from './SuccessMessage';
 import { validateEmail, validatePassword } from '../../general/validation';
+import { submitForm } from '../../general/formSubmission';
 
 const RegisterPage: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -51,35 +52,12 @@ const RegisterPage: React.FC = () => {
       confirmPassword,
     };
 
-    try {
-      const response = await fetch('http://localhost:3001/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+    await submitForm(data, setSuccessMessage, setEmailError);
 
-      if (response.ok) {
-        setSuccessMessage('Data saved successfully');
-        setUsername('');
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
-        setTimeout(() => {
-          setSuccessMessage('');
-        }, 5000);
-      } else if (response.status === 400) {
-        setEmailError('Email ID already exists');
-        setTimeout(() => {
-          setEmailError('');
-        }, 5000);
-      } else {
-        console.error('Error saving data');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
+    setUsername('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
   };
 
   return (
