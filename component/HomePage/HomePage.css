@@ -1,0 +1,30 @@
+/* component/HomePage/HomePage.css */
+.home-page {
+  background: linear-gradient(135deg, #370ecd 0%, #fda085 100%);
+}
+
+.home-page-card {
+  max-width: 600px; /* Increased maxWidth to 600px */
+  width: 100%;
+}
+
+.custom-dropdown .dropdown-toggle {
+  background-color: #007bff; /* Custom background color */
+  color: white; /* Custom text color */
+  border: none; /* Remove border */
+  border-radius: 0; /* Remove border radius */
+}
+
+.custom-dropdown .dropdown-menu {
+  background-color: #f8f9fa; /* Custom background color for dropdown menu */
+  border: none; /* Remove border */
+  border-radius: 0; /* Remove border radius */
+}
+
+.custom-dropdown .dropdown-item {
+  color: #007bff; /* Custom text color for dropdown items */
+}
+
+.custom-dropdown .dropdown-item:hover {
+  background-color: #e9ecef; /* Custom hover background color for dropdown items */
+}
