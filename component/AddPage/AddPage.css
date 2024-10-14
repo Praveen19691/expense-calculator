@@ -1,0 +1,9 @@
+/* component/AddPage/AddPage.css */
+.add-page {
+  background: linear-gradient(135deg, #370ecd 0%, #fda085 100%);
+}
+
+.add-page-card {
+  max-width: 600px;
+  width: 100%;
+}
